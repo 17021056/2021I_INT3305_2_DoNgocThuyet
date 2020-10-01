@@ -1,22 +1,22 @@
 class PrefixCodeTree:
-  def __init__(self):
-    # setting binary tree by array
-    self.tree = [0]*1000
+  def __init__(self): # hàm tạo class
+    # thiết lập cây nhị phân theo mảng
+    self.tree = [0]*10000
 
   def insert(self,codeword,symbol):
-    #find index of codeword
+    #tìm index của codeword
     index=0
     for element in codeword:
       if element == 1: 
         index = index * 2 + 2
       elif element == 0:
         index = index * 2 + 1
-    #assign symbol into tree[index]
+    #chỉ định symobl vào trong tree[index]
     self.tree[index]=symbol
 
   def decode(self,encodedData, datalen):
-    # initial value
-    result=""
+    # tạo giá trị
+    results=""
     index=0
     # convert encodedData
     data=""
@@ -29,22 +29,22 @@ class PrefixCodeTree:
         index = index * 2 + 2
       elif char == '0':
         index = index * 2 + 1
-      #if find a symbol, add to result, go to root of tree
+      #if find a symbol, add to results, go to root of tree
       if self.tree[index] != 0:
-        result += " " + self.tree[index]
+        results += " " + self.tree[index]
         index=0 
-    return result
+    return results
 
 codeTree = PrefixCodeTree()
 codebook = {
-'x1': [0],
-'x2': [1,0,0],
-'x3': [1,0,1],
-'x4': [1,1]
+'X1': [0],
+'X2': [1,0],
+'X3': [1,1,0],
+'X4': [1,1,1]
 }
 
 for symbol in codebook:
   codeTree.insert(codebook[symbol], symbol)
 
-message = codeTree.decode(b'\xd2\x9f\x20', 21)
+message = codeTree.decode(b'\xef\xbb\xbf', 20)
 print(message)
