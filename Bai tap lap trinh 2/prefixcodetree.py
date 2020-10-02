@@ -37,14 +37,15 @@ class PrefixCodeTree:
 
 codeTree = PrefixCodeTree()
 codebook = {
-'X1': [0],
-'X2': [1,0],
-'X3': [1,1,0],
-'X4': [1,1,1]
+  'x1': [0], 
+  'x2': [1,0,0], 
+  'x3': [1,0,1], 
+  'x4': [1,1] 
+
 }
 
 for symbol in codebook:
   codeTree.insert(codebook[symbol], symbol)
 
-message = codeTree.decode(b'\xef\xbb\xbf', 20)
+message = codeTree.decode(b'\xd2\x9f\x20', 21)
 print(message)
